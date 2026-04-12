@@ -1,0 +1,268 @@
+
+    <style>
+        :root {
+            /* Tmavé pozadie */
+            --bg-color: #0a0e14;
+            /* Neónové farby pre sekcie */
+            --color-lts: #00f2fe; /* Azúrová (Senior) */
+            --color-lts-dim: rgba(0, 242, 254, 0.3);
+            
+            --color-lab: #a145ff;  /* Fialová (Full-Stack) */
+            --color-lab-dim: rgba(161, 69, 255, 0.3);
+            
+            --color-solutions: #ff9f43;   /* Oranžová (Frontend) */
+            --color-solutions-dim: rgba(255, 159, 67, 0.3);
+            
+            --color-startup: #00eb8d;      /* Zelená (Junior) */
+            --color-startup-dim: rgba(0, 235, 141, 0.3);
+            
+            /* Neutrálne farby */
+            --text-main: #ffffff;
+            --text-muted: #8b9bb4;
+            --card-bg: #141a23;
+            --card-border: rgba(255, 255, 255, 0.08);
+            --font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+            padding-bottom: 50px;
+        }
+
+        /* --- HLAVIČKA SEKCIÍ (Header) --- */
+        .section-header {
+            text-align: center;
+            padding: 80px 20px;
+        }
+
+        .section-header h1 {
+            font-size: 36px;
+            font-weight: 800;
+            color: var(--text-main);
+            margin-bottom: 10px;
+            letter-spacing: -1px;
+        }
+
+        .section-header p {
+            color: var(--text-muted);
+            font-size: 16px;
+        }
+
+        /* --- PROFESIONÁLNA CESTA (Professional Journey) --- */
+        .journey-container {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            padding: 0 20px 0 60px; /* Priestor pre os */
+        }
+
+        /* --- KARTY SKÚSENOSTÍ (Experience Cards) --- */
+        .experience-item {
+            margin-bottom: 40px;
+            position: relative;
+            z-index: 2;
+        }
+
+
+        /* Karta */
+        .experience-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 25px;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+        }
+
+        /* Žiara a efekt pri hoveri */
+        .experience-card:hover {
+            border-color: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            transform: translateY(-3px);
+        }
+
+        /* Hlavička karty (Názov, Firma, Dátum) */
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .role-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .company-name {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        /* Štítok s dátumom */
+        .date-tag {
+            font-size: 11px;
+            padding: 5px 12px;
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-family: monospace;
+            white-space: nowrap;
+        }
+
+        /* Zoznam úspechov */
+        .achievement-list {
+            list-style: none;
+        }
+
+        .achievement-item {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            position: relative;
+            padding-left: 18px;
+            transition: color 0.2s ease;
+        }
+
+        /* Bodka pred zoznamom */
+        .achievement-item::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            font-size: 16px;
+        }
+
+        /* Zvýraznenie kľúčových slov */
+        .achievement-item strong {
+            color: var(--text-main);
+            font-weight: 600;
+        }
+
+        /* Farebné zvýraznenie pri hoveri na kartu */
+        .experience-card:hover .achievement-item {
+            color: var(--text-main);
+        }
+
+        /* --- ŠPECIFICKÉ FARBY PRE SEKCIE --- */
+        
+        /* 1. Senior (Azúrová) */
+        .section-senior .experience-node { border-color: var(--color-lts); box-shadow: 0 0 10px var(--color-lts); }
+        .section-senior:hover .experience-node { box-shadow: 0 0 15px var(--color-lts), 0 0 30px var(--color-lts); }
+        .section-senior .role-title { color: var(--color-lts); }
+        .section-senior .achievement-item::before { color: var(--color-lts); }
+        .section-senior .date-tag:hover { color: var(--color-lts); border-color: var(--color-lts-dim); background: rgba(0, 242, 254, 0.05); }
+
+        /* 2. Full-Stack (Fialová) */
+        .section-fullstack .experience-node { border-color: var(--color-lab); box-shadow: 0 0 10px var(--color-lab); }
+        .section-fullstack:hover .experience-node { box-shadow: 0 0 15px var(--color-lab), 0 0 30px var(--color-lab); }
+        .section-fullstack .role-title { color: var(--color-lab); }
+        .section-fullstack .achievement-item::before { color: var(--color-lab); }
+        .section-fullstack .date-tag:hover { color: var(--color-lab); border-color: var(--color-lab-dim); background: rgba(161, 69, 255, 0.05); }
+
+        /* 3. Frontend (Oranžová) */
+        .section-frontend .experience-node { border-color: var(--color-solutions); box-shadow: 0 0 10px var(--color-solutions); }
+        .section-frontend:hover .experience-node { box-shadow: 0 0 15px var(--color-solutions), 0 0 30px var(--color-solutions); }
+        .section-frontend .role-title { color: var(--color-solutions); }
+        .section-frontend .achievement-item::before { color: var(--color-solutions); }
+        .section-frontend .date-tag:hover { color: var(--color-solutions); border-color: var(--color-solutions-dim); background: rgba(255, 159, 67, 0.05); }
+
+        /* 4. Junior (Zelená) */
+        .section-junior .experience-node { border-color: var(--color-startup); box-shadow: 0 0 10px var(--color-startup); }
+        .section-junior:hover .experience-node { box-shadow: 0 0 15px var(--color-startup), 0 0 30px var(--color-startup); }
+        .section-junior .role-title { color: var(--color-startup); }
+        .section-junior .achievement-item::before { color: var(--color-startup); }
+        .section-junior .date-tag:hover { color: var(--color-startup); border-color: var(--color-startup-dim); background: rgba(0, 235, 141, 0.05); }
+        
+    </style>
+        <div class="journey-container">
+            <div class="section-header">
+            <h1>Professional Journey</h1>
+            <p>Career milestones and key achievements</p>
+        </div>
+        <div class="experience-item section-senior">
+            <div class="experience-node"></div> <div class="experience-card">
+                <div class="card-header">
+                    <div>
+                        <div class="role-title">Senior Full-Stack Engineer</div>
+                        <div class="company-name">TechCorp Industries</div>
+                    </div>
+                    <span class="date-tag">2024 - Present</span>
+                </div>
+                <ul class="achievement-list">
+                    <li class="achievement-item">Architected microservices platform serving <strong>2M+ users</strong> with <strong>99.99% uptime</strong></li>
+                    <li class="achievement-item">Led migration from monolith to <strong>Kubernetes</strong>-based infrastructure, reducing costs by <strong>40%</strong></li>
+                    <li class="achievement-item">Implemented real-time <strong>IoT dashboard</strong> processing <strong>10k+ device</strong> telemetry streams</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="experience-item section-fullstack">
+            <div class="experience-node"></div>
+            <div class="experience-card">
+                <div class="card-header">
+                    <div>
+                        <div class="role-title">Full-Stack Developer</div>
+                        <div class="company-name">Innovation Labs</div>
+                    </div>
+                    <span class="date-tag">2022 - 2024</span>
+                </div>
+                <ul class="achievement-list">
+                    <li class="achievement-item">Built scalable <strong>GraphQL API</strong> handling <strong>500k+</strong> daily requests with <strong>sub-100ms</strong> latency</li>
+                    <li class="achievement-item">Designed and deployed <strong>CI/CD pipeline</strong> reducing deployment time from <strong>hours to minutes</strong></li>
+                    <li class="achievement-item">Developed <strong>IoT sensor network</strong> for smart building automation using <strong>MQTT</strong> and <strong>ESP32</strong></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="experience-item section-frontend">
+            <div class="experience-node"></div>
+            <div class="experience-card">
+                <div class="card-header">
+                    <div>
+                        <div class="role-title">Frontend Developer</div>
+                        <div class="company-name">Digital Solutions Inc</div>
+                    </div>
+                    <span class="date-tag">2020 - 2022</span>
+                </div>
+                <ul class="achievement-list">
+                    <li class="achievement-item">Created component library with <strong>50+ reusable React components</strong> adopted across 5 products</li>
+                    <li class="achievement-item">Improved web performance metrics by <strong>60%</strong> through optimization and lazy loading</li>
+                    <li class="achievement-item">Collaborated with design team to implement design system using <strong>Tailwind CSS</strong></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="experience-item section-junior">
+            <div class="experience-node"></div>
+            <div class="experience-card">
+                <div class="card-header">
+                    <div>
+                        <div class="role-title">Junior Developer</div>
+                        <div class="company-name">StartUp Ventures</div>
+                    </div>
+                    <span class="date-tag">2019 - 2020</span>
+                </div>
+                <ul class="achievement-list">
+                    <li class="achievement-item">Developed responsive web applications using <strong>React</strong> and <strong>Node.js</strong></li>
+                    <li class="achievement-item">Integrated third-party APIs and payment gateways for e-commerce platform</li>
+                    <li class="achievement-item">Participated in agile development process and code reviews</li>
+                </ul>
+            </div>
+        </div>
+    </div>

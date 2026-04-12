@@ -1,0 +1,74 @@
+
+    <style>
+        .cta-section {
+            text-align: center;
+            padding: 120px 20px;
+        }
+
+        .cta-title {
+            font-size: 32px;
+            font-weight: 800;
+            color: #00f2fe; /* Azúrová žiara */
+            margin-bottom: 10px;
+            letter-spacing: -0.5px;
+            text-shadow: 0 0 15px rgba(0, 242, 254, 0.5);
+        }
+
+        .cta-desc {
+            color: var(--text-muted);
+            font-size: 16px;
+            margin-bottom: 40px;
+        }
+
+        /* Kontajner pre sociálne ikony */
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .social-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+            background-color: #141a23;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 12px;
+            color: var(--text-muted);
+            font-size: 20px;
+            text-decoration: none;
+            transition: border-color 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Efekt pri hoveri na sociálne tlačidlo */
+        .social-button:hover {
+            border-color: rgba(0, 242, 254, 0.3);
+            background-color: #1a222c;
+            color: #00f2fe;
+            box-shadow: 0 0 15px rgba(0, 242, 254, 0.2);
+        }
+
+        /* --- RESPONSIVE DIZAJN (Mobily) --- */
+        @media (max-width: 600px) {
+            .section-header h1 { font-size: 28px; }
+            .role-title { font-size: 18px; }
+            .card-header { flex-direction: column; align-items: flex-start; }
+            .cta-title { font-size: 28px; }
+        }
+    </style>
+    
+    <div class="cta-section">
+        <h2 class="cta-title">Ready for the next challenge?</h2>
+        <p class="cta-desc">Let's build something incredible together</p>
+        
+        <div class="social-icons">
+            <a href="#" class="social-button" target="_blank" rel="noopener noreferrer">
+                <i>G</i> </a>
+            <a href="#" class="social-button" target="_blank" rel="noopener noreferrer">
+                <i>In</i> </a>
+            <a href="#" class="social-button" target="_blank" rel="noopener noreferrer">
+                <i>X</i> </a>
+        </div>
+    </div>

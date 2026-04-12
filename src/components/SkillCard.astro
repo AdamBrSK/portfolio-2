@@ -1,0 +1,373 @@
+---
+
+const colorVariant = ["section-frontend", "section-backend", "section-devops",  "section-iot"]
+
+const roadmapData = [
+  {
+    id: "Frontend",
+    title: "Frontend Development",
+    colorVar: "--color-frontend",
+    skills: [
+      { name: "React", percent: 95 },
+      { name: "Next.js", percent: 90 },
+      { name: "TypeScript", percent: 92 },
+      { name: "Tailwind", percent: 88 },
+      { name: "Redux", percent: 85 },
+    ],
+    projects: [
+      { 
+        title: "E-Commerce Platform", 
+        desc: "Full-featured shopping experience with Next.js 14 and TypeScript", 
+        tags: ["React", "Next.js", "TypeScript"] 
+      },
+      { 
+        title: "Real-time Dashboard", 
+        desc: "Analytics platform with live data visualization", 
+        tags: ["React", "Redux", "Tailwind"] 
+      }
+    ]
+  },
+  {
+    id: "Backend",
+    title: "Backend Engineering",
+    colorVar: "--color-backend",
+    skills: [
+      { name: "Node.js", percent: 93 },
+      { name: "Python", percent: 87 },
+      { name: "PostgreSQL", percent: 89 },
+      { name: "Redis", percent: 82 },
+      { name: "GraphQL", percent: 86 },
+    ],
+    projects: [
+      { 
+        title: "Microservices API", 
+        desc: "Scalable REST & GraphQL API with Node.js and PostgreSQL", 
+        tags: ["Node.js", "GraphQL", "PostgreSQL"] 
+      },
+      { 
+        title: "Auth System", 
+        desc: "JWT/OAuth authentication with Redis session management", 
+        tags: ["Python", "Redis", "JWT"] 
+      }
+    ]
+  },
+  {
+    id: "Devops",
+    title: "DevOps & Cloud",
+    colorVar: "--color-devops",
+    skills: [
+      { name: "Docker", percent: 91 },
+      { name: "Kubernetes", percent: 84 },
+      { name: "GitHub Actions", percent: 88 },
+      { name: "AWS", percent: 86 },
+      { name: "Terraform", percent: 83 },
+    ],
+    projects: [
+      { 
+        title: "CI/CD Pipeline", 
+        desc: "Automated deployment with GitHub Actions and AWS", 
+        tags: ["Docker", "K8s", "GitHub Actions"] 
+      },
+      { 
+        title: "Infrastructure as Code", 
+        desc: "Multi-cloud deployment using Terraform", 
+        tags: ["Terraform", "AWS", "Docker"] 
+      }
+    ]
+  },
+  {
+    id: "Iot",
+    title: "IoT & Embedded",
+    colorVar: "--color-iot",
+    skills: [
+      { name: "ESP32", percent: 90 },
+      { name: "MQTT", percent: 87 },
+      { name: "Raspberry Pi", percent: 92 },
+      { name: "C++", percent: 85 },
+      { name: "MicroPython", percent: 88 },
+    ],
+    projects: [
+      { 
+        title: "Smart Home Hub", 
+        desc: "ESP32-based automation system with MQTT protocol", 
+        tags: ["ESP32", "MQTT", "C++"] 
+      },
+      { 
+        title: "Sensor Network", 
+        desc: "Raspberry Pi cluster for environmental monitoring", 
+        tags: ["Raspberry Pi", "MicroPython", "MQTT"] 
+      }
+    ]
+  }
+];
+
+---
+
+<style>
+    .skills-container {
+            width: 45%;
+        }
+
+        .skill-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 30px;
+            position: relative;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        /* Žiara pri hoveri */
+        .skill-card:hover {
+            border-color: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Ikona teplomera (vizuálny prvok) */
+        .thermometer-icon {
+            position: absolute;
+            top: 25px;
+            left: 20px;
+            width: 14px;
+            height: 35px;
+            background: repeating-linear-gradient(to bottom, rgba(255,255,255,0.1) 0px, rgba(255,255,255,0.1) 2px, transparent 2px, transparent 4px);
+            border-radius: 7px;
+        }
+        .thermometer-icon::after {
+            content: '';
+            position: absolute;
+            bottom: 2px;
+            left: 2px;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        .skill-card h2 {
+            font-size: 20px;
+            margin-bottom: 25px;
+            padding-left: 35px; /* Priestor pre ikonu */
+        }
+
+        /* Štýly grafu (Progress Bar) */
+        .skill-item {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .skill-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .skill-name-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Neónový bod pred názvom */
+        .skill-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+
+        .skill-name {
+            font-size: 14px;
+            color: var(--text-main);
+        }
+
+        .skill-percentage {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .progress-bar-bg {
+            width: 100%;
+            height: 6px;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            border-radius: 3px;
+            width: 0; /* Animované cez JS */
+            transition: width 1s ease-out;
+        }
+
+        /* --- SEKCE (Roadmap Sections) --- */
+        .roadmap-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 120px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Párne sekcie (Backend, IoT) majú prehodené strany */
+        .roadmap-section.even {
+            flex-direction: row-reverse;
+        }
+
+    /* --- PROJEKTOVÉ KARTY (Project Cards - Pravá strana pre odd, ľavá pre even) --- */
+        .projects-container {
+            width: 45%;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-top: 50px; /* Zarovnanie s bodom na osi */
+        }
+
+        .project-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 25px;
+            transition: transform 0.2s ease, border-color 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255, 255, 255, 0.15);
+        }
+
+        .project-card h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: var(--text-main);
+        }
+
+        .project-card p {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 15px;
+            border-left: 2px solid transparent; /* Rezerva pre neónovú čiaru */
+            padding-left: 0;
+            transition: border-color 0.3s ease, padding-left 0.3s ease;
+        }
+
+    /* Neónová čiara pri hoveri */
+        .project-card:hover p {
+            padding-left: 10px;
+        }
+
+        /* Štítky technológií (Tags) */
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tag {
+            font-size: 11px;
+            padding: 4px 10px;
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            color: var(--text-muted);
+            transition: color 0.2s ease, background 0.2s ease;
+        }
+
+        /* --- PÁJAČE NA OSI (Timeline Nodes) --- */
+        .timeline-node {
+            position: absolute;
+            left: 50%;
+            top: 70px; /* Zarovnané so začiatkom projektov */
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            transform: translateX(-50%);
+            z-index: 3;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+        }
+    /* --- ŠPECIFICKÉ FARBY PRE SEKCIE --- */
+        /* Frontend (Odd 1) */
+        .section-frontend .skill-card { border-color: rgba(0, 242, 254, 0.15); }
+        .section-frontend .skill-card:hover { box-shadow: 0 10px 30px rgba(0, 242, 254, 0.15); }
+        .section-frontend .thermometer-icon::after { background-color: var(--color-frontend); box-shadow: 0 0 10px var(--color-frontend); }
+        .section-frontend .skill-card h2 { color: var(--color-frontend); }
+        .section-frontend .skill-dot { background-color: var(--color-frontend); box-shadow: 0 0 5px var(--color-frontend); }
+        .section-frontend .progress-bar-fill { background: linear-gradient(90deg, #0072ff, var(--color-frontend)); box-shadow: 0 0 10px rgba(0, 242, 254, 0.5); }
+        .section-frontend .project-card:hover h3 { color: var(--color-frontend); }
+        .section-frontend .project-card:hover p { border-color: var(--color-frontend); }
+        .section-frontend .tag:hover { color: var(--color-frontend); background: rgba(0, 242, 254, 0.05); border-color: rgba(0, 242, 254, 0.2); }
+        .section-frontend .timeline-node { background-color: var(--color-frontend); box-shadow: 0 0 15px var(--color-frontend); }
+
+        /* Backend (Even 2) */
+        .section-backend .skill-card { border-color: rgba(161, 69, 255, 0.15); }
+        .section-backend .skill-card:hover { box-shadow: 0 10px 30px rgba(161, 69, 255, 0.15); }
+        .section-backend .thermometer-icon::after { background-color: var(--color-backend); box-shadow: 0 0 10px var(--color-backend); }
+        .section-backend .skill-card h2 { color: var(--color-backend); }
+        .section-backend .skill-dot { background-color: var(--color-backend); box-shadow: 0 0 5px var(--color-backend); }
+        .section-backend .progress-bar-fill { background: linear-gradient(90deg, #5500ff, var(--color-backend)); box-shadow: 0 0 10px rgba(161, 69, 255, 0.5); }
+        .section-backend .project-card:hover h3 { color: var(--color-backend); }
+        .section-backend .project-card:hover p { border-color: var(--color-backend); }
+        .section-backend .tag:hover { color: var(--color-backend); background: rgba(161, 69, 255, 0.05); border-color: rgba(161, 69, 255, 0.2); }
+        .section-backend .timeline-node { background-color: var(--color-backend); box-shadow: 0 0 15px var(--color-backend); }
+
+        /* DevOps (Odd 3) */
+        .section-devops .skill-card { border-color: rgba(255, 159, 67, 0.15); }
+        .section-devops .skill-card:hover { box-shadow: 0 10px 30px rgba(255, 159, 67, 0.15); }
+        .section-devops .thermometer-icon::after { background-color: var(--color-devops); box-shadow: 0 0 10px var(--color-devops); }
+        .section-devops .skill-card h2 { color: var(--color-devops); }
+        .section-devops .skill-dot { background-color: var(--color-devops); box-shadow: 0 0 5px var(--color-devops); }
+        .section-devops .progress-bar-fill { background: linear-gradient(90deg, #ff6b6b, var(--color-devops)); box-shadow: 0 0 10px rgba(255, 159, 67, 0.5); }
+        .section-devops .project-card:hover h3 { color: var(--color-devops); }
+        .section-devops .project-card:hover p { border-color: var(--color-devops); }
+        .section-devops .tag:hover { color: var(--color-devops); background: rgba(255, 159, 67, 0.05); border-color: rgba(255, 159, 67, 0.2); }
+        .section-devops .timeline-node { background-color: var(--color-devops); box-shadow: 0 0 15px var(--color-devops); }
+
+        /* IoT (Even 4) */
+        .section-iot .skill-card { border-color: rgba(0, 235, 141, 0.15); }
+        .section-iot .skill-card:hover { box-shadow: 0 10px 30px rgba(0, 235, 141, 0.15); }
+        .section-iot .thermometer-icon::after { background-color: var(--color-iot); box-shadow: 0 0 10px var(--color-iot); }
+        .section-iot .skill-card h2 { color: var(--color-iot); }
+        .section-iot .skill-dot { background-color: var(--color-iot); box-shadow: 0 0 5px var(--color-iot); }
+        .section-iot .progress-bar-fill { background: linear-gradient(90deg, #00a8cc, var(--color-iot)); box-shadow: 0 0 10px rgba(0, 235, 141, 0.5); }
+        .section-iot .project-card:hover h3 { color: var(--color-iot); }
+        .section-iot .project-card:hover p { border-color: var(--color-iot); }
+        .section-iot .tag:hover { color: var(--color-iot); background: rgba(0, 235, 141, 0.05); border-color: rgba(0, 235, 141, 0.2); }
+        .section-iot .timeline-node { background-color: var(--color-iot); box-shadow: 0 0 15px var(--color-iot); }
+</style>
+
+{roadmapData.map((data, index) => (
+    <div class=`roadmap-section ${index%2==0 ? 'even' : 'odd'} ${colorVariant[index]}`>
+            <div class="timeline-node"></div>
+            
+            <div class="skills-container">
+                <div class="skill-card">
+                    <div class="thermometer-icon"></div>
+                    <h2 style="margin-top: 0">{data.id}</h2>
+                    {data.skills.map((skill, index) => (
+                        <div class="skill-item">
+                            <div class="skill-header">
+                                <div class="skill-name-wrapper"><div class="skill-dot"></div><span class="skill-name">{skill.name}</span></div>
+                                <span class="skill-percentage">{skill.percent}</span>
+                            </div>
+                        <div class="progress-bar-bg"><div class="progress-bar-fill" data-percent="93"></div></div>
+                    </div>
+                    ))}
+                </div>
+            </div>
+
+            <div class="projects-container">
+                {data.projects.map((project, index) => {
+                    <div class="project-card">
+                        <h3>{project.title}</h3>
+                        <p>{project.desc}</p>
+                        <div class="project-tags">
+                            {project.tags.map((tag) => {
+                                <span class="tag">{tag}</span>
+                            })}
+                        </div>
+                    </div>
+                })}
+            </div>
+        </div>
+))}
