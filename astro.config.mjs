@@ -6,9 +6,9 @@ import react from '@astrojs/react';
 // @ts-ignore
 const isGitHubPages = process.env.GITHUB_ACTIONS === 'true';
 // @ts-ignore
-const repoName = process.env.GITHUB_REPOSITORY ? `/${process.env.GITHUB_REPOSITORY.split('/')[1]}` : '';
+const repoName = "/portfolio-2";
 // @ts-ignore
-const GITHUB_REPOSITORY_OWNER = process.env.GITHUB_REPOSITORY_OWNER
+const GITHUB_REPOSITORY_OWNER = 'https://AdamBrSK.github.io'
 
 // https://astro.build/config
 export default defineConfig({
@@ -19,6 +19,11 @@ export default defineConfig({
     }
   },
   integrations: [react()],
-  site: isGitHubPages ? `https://${GITHUB_REPOSITORY_OWNER}.github.io` : "https://web.com",
-  base: isGitHubPages ? repoName : "/",
+  // @ts-ignore
+  site: process.env.VERCEL ? 'https://tvoje-meno.vercel.app' : 'https://AdamBrSK.github.io',
+  // @ts-ignore
+  base: (process.env.NETLIFY || process.env.VERCEL) ? '/' : '/portfolio-2',
+  build: {
+    assets: 'assets' 
+  }
 });
