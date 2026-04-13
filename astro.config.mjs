@@ -22,7 +22,9 @@ export default defineConfig({
   // @ts-ignore
   site: process.env.VERCEL ? 'https://tvoje-meno.vercel.app' : 'https://AdamBrSK.github.io',
   // @ts-ignore
-  base: (process.env.NETLIFY || process.env.VERCEL) ? '/' : '/portfolio-2',
+  base: (process.env.RENDER || process.env.VERCEL || process.env.NETLIFY) 
+    ? '/' 
+    : '/portfolio-2',
   build: {
     assets: 'assets' 
   }
