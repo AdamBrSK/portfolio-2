@@ -3,6 +3,8 @@ import { defineConfig, envField } from 'astro/config';
 
 import react from '@astrojs/react';
 
+import cloudflare from '@astrojs/cloudflare';
+
 // @ts-ignore
 const isGitHubPages = process.env.GITHUB_ACTIONS === 'true';
 // @ts-ignore
@@ -18,14 +20,20 @@ export default defineConfig({
 
     }
   },
+
   integrations: [react()],
+
   // @ts-ignore
   site: process.env.VERCEL ? 'https://tvoje-meno.vercel.app' : 'https://AdamBrSK.github.io',
+
   // @ts-ignore
   base: (process.env.RENDER || process.env.VERCEL || process.env.NETLIFY) 
     ? '/' 
     : '/portfolio-2',
+
   build: {
     assets: 'assets' 
-  }
+  },
+
+  adapter: cloudflare()
 });
